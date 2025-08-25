@@ -1,0 +1,8 @@
+export default function Home() {
+  return (
+    <main style={{ padding: 16 }}>
+      <h2>Projeto DMA</h2>
+      <p>Acesse a página em <a href="/dma">/dma</a>.</p>
+    </main>
+  );
+}
