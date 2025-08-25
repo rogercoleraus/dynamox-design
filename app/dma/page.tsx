@@ -15,7 +15,7 @@ import {
   TextField,
   Typography,
 } from '@mui/material';
-import { DataGrid, GridColDef, GridToolbarColumnsButton } from '@mui/x-data-grid';
+import { DataGrid, GridColDef, GridToolbar } from '@mui/x-data-grid';
 import PauseIcon from '@mui/icons-material/Pause';
 import PlayArrowIcon from '@mui/icons-material/PlayArrow';
 
@@ -252,7 +252,7 @@ export default function Page() {
 
         <Stack direction="row" spacing={1} alignItems="center">
           <Chip label={`Colunas Selecionadas: ${selectedColumnsCount}/23`} variant="outlined" />
-          <GridToolbarColumnsButton />
+          {/* Removido o GridToolbarColumnsButton fora do contexto */}
         </Stack>
 
         <Stack direction="row" spacing={1} alignItems="center" ml="auto">
@@ -300,7 +300,7 @@ export default function Page() {
             '& .MuiDataGrid-columnHeaders': { fontWeight: 600 }
           }}
           slots={{
-            toolbar: () => null
+            toolbar: GridToolbar
           }}
         />
         <Stack direction="row" spacing={2} alignItems="center" justifyContent="space-between" mt={1}>
