@@ -15,7 +15,7 @@ import {
   TextField,
   Typography,
 } from '@mui/material';
-import { DataGrid, GridColDef, GridToolbar } from '@mui/x-data-grid';
+import { DataGrid, GridColDef } from '@mui/x-data-grid';
 import PauseIcon from '@mui/icons-material/Pause';
 import PlayArrowIcon from '@mui/icons-material/PlayArrow';
 
@@ -230,97 +230,4 @@ export default function Page() {
           <Select
             labelId="ordenar-label"
             label="spots ordenados por"
-            value={sortModel?.field ?? 'temperaturaMedia'}
-            onChange={(e) => {
-              const field = String(e.target.value);
-              setSortModel((prev) => ({ field, sort: prev?.sort ?? 'desc' }));
-            }}
-          >
-            <MenuItem value="temperaturaMedia">Temp. Média (Cº)</MenuItem>
-            <MenuItem value="velocidadeMedia">Vel. Média</MenuItem>
-            <MenuItem value="aceleracaoMediaA1">Acel. Média A1</MenuItem>
-            <MenuItem value="aceleracaoMediaA2">Acel. Média A2</MenuItem>
-          </Select>
-        </FormControl>
-
-        <FormControl size="small" sx={{ minWidth: 160 }}>
-          <InputLabel id="estrategia-label">Estratégia de manutenção</InputLabel>
-          <Select labelId="estrategia-label" label="Estratégia de manutenção" defaultValue="100456">
-            <MenuItem value="100456">100456</MenuItem>
-          </Select>
-        </FormControl>
-
-        <Stack direction="row" spacing={1} alignItems="center">
-          <Chip label={`Colunas Selecionadas: ${selectedColumnsCount}/23`} variant="outlined" />
-          {/* Removido o GridToolbarColumnsButton fora do contexto */}
-        </Stack>
-
-        <Stack direction="row" spacing={1} alignItems="center" ml="auto">
-          <Typography variant="body2">Atualizando em {autoRefreshSec} segundos</Typography>
-          <IconButton size="small" onClick={() => setIsPaused((p) => !p)}>
-            {isPaused ? <PlayArrowIcon fontSize="small" /> : <PauseIcon fontSize="small" />}
-          </IconButton>
-          <TextField
-            size="small"
-            type="number"
-            value={autoRefreshSec}
-            onChange={(e) => setAutoRefreshSec(Math.max(5, Number(e.target.value) || 25))}
-            sx={{ width: 90 }}
-            inputProps={{ min: 5 }}
-          />
-        </Stack>
-      </Stack>
-
-      <Divider />
-
-      <Box sx={{ height: 560, width: '100%' }}>
-        <DataGrid
-          rows={rows}
-          columns={columns}
-          rowCount={rowCount}
-          paginationMode="server"
-          sortingMode="server"
-          onSortModelChange={(model) => {
-            const m = model?.[0];
-            setSortModel(m ?? null);
-            setPage(0);
-          }}
-          sortModel={sortModel?.field ? [{ field: sortModel.field, sort: sortModel.sort }] : []}
-          page={page}
-          onPageChange={(newPage) => setPage(newPage)}
-          pageSizeOptions={[10, 25, 50]}
-          paginationModel={{ pageSize, page }}
-          onPaginationModelChange={(m) => {
-            setPage(m.page);
-            setPageSize(m.pageSize);
-          }}
-          disableRowSelectionOnClick
-          density="compact"
-          sx={{
-            '& .MuiDataGrid-columnHeaders': { fontWeight: 600 }
-          }}
-          slots={{
-            toolbar: GridToolbar
-          }}
-        />
-        <Stack direction="row" spacing={2} alignItems="center" justifyContent="space-between" mt={1}>
-          <Typography variant="body2">
-            Linhas por página: {pageSize} — {rowCount === 0 ? '0-0' : `${page * pageSize + 1}-${Math.min((page + 1) * pageSize, rowCount)}`} de {rowCount}
-          </Typography>
-          <Stack direction="row" spacing={1}>
-            <Button size="small" disabled={page === 0} onClick={() => setPage((p) => Math.max(0, p - 1))}>
-              Anterior
-            </Button>
-            <Button
-              size="small"
-              disabled={(page + 1) * pageSize >= rowCount}
-              onClick={() => setPage((p) => p + 1)}
-            >
-              Próxima
-            </Button>
-          </Stack>
-        </Stack>
-      </Box>
-    </Stack>
-  );
-}
+            value={sort
